@@ -13,7 +13,7 @@ const Contact = () => {
     {
       icon: "Mail",
       title: "Email",
-      info: "terator888@gmai.com",
+      info: "terator888@gmail.com",
       subtitle: "Ответим в течение часа",
     },
     {
