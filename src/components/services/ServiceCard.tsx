@@ -1,5 +1,4 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import { Service } from "@/types/services";
 
 interface ServiceCardProps {
@@ -23,14 +22,9 @@ const ServiceCard = ({ service }: ServiceCardProps) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="pt-0">
-            <div className="flex justify-between items-center">
-              <span className="text-2xl font-bold text-purple-600">
-                {service.price}
-              </span>
-              <Button variant="outline" size="sm">
-                Выбрать
-              </Button>
-            </div>
+            <span className="text-2xl font-bold text-purple-600">
+              {service.price}
+            </span>
           </CardContent>
         </div>
       </div>
