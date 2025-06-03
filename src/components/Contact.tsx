@@ -1,8 +1,48 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Icon from "@/components/ui/icon";
+import { useState } from "react";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    phone: "",
+    eventType: "",
+    message: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
+    >,
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    // Формируем текст сообщения
+    const message = `🎉 *Новая заявка с сайта*
+
+👤 *Имя:* ${formData.name}
+📱 *Телефон:* ${formData.phone}
+🎊 *Тип мероприятия:* ${formData.eventType}
+💬 *Сообщение:* ${formData.message}`;
+
+    // Кодируем сообщение для URL
+    const encodedMessage = encodeURIComponent(message);
+
+    // Формируем WhatsApp ссылку
+    const whatsappUrl = `https://wa.me/79284500272?text=${encodedMessage}`;
+
+    // Открываем WhatsApp
+    window.open(whatsappUrl, "_blank");
+
+    // Очищаем форму
+    setFormData({ name: "", phone: "", eventType: "", message: "" });
+  };
   const contacts = [
     {
       icon: "Phone",
@@ -81,45 +121,70 @@ const Contact = () => {
             <div className="space-y-4">
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
                 placeholder="Ваше имя"
+                required
                 className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
               />
               <input
                 type="tel"
+                name="phone"
+                value={formData.phone}
+                onChange={handleInputChange}
                 placeholder="Телефон"
+                required
                 className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
               />
-              <select className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200">
-                <option>Выберите тип мероприятия</option>
-                <option>Детский праздник</option>
-                <option>Мастер-класс</option>
-                <option>Романтическое мероприятие</option>
-                <option>Корпоративное событие</option>
+              <select
+                name="eventType"
+                value={formData.eventType}
+                onChange={handleInputChange}
+                required
+                className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200"
+              >
+                <option value="">Выберите тип мероприятия</option>
+                <option value="Детский праздник">Детский праздник</option>
+                <option value="Мастер-класс">Мастер-класс</option>
+                <option value="Романтическое мероприятие">
+                  Романтическое мероприятие
+                </option>
+                <option value="Корпоративное событие">
+                  Корпоративное событие
+                </option>
               </select>
             </div>
 
             <div>
               <textarea
+                name="message"
+                value={formData.message}
+                onChange={handleInputChange}
                 placeholder="Расскажите о ваших пожеланиях..."
                 rows={6}
+                required
                 className="w-full p-4 border border-gray-200 rounded-lg focus:outline-none focus:border-orange-500 focus:ring-2 focus:ring-orange-200 resize-none"
               ></textarea>
             </div>
           </div>
 
-          <div className="text-center mt-8">
-            <Button
-              size="lg"
-              className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-12 py-4 text-lg"
-            >
-              <Icon name="Send" className="mr-2" />
-              Отправить заявку
-            </Button>
+          <form onSubmit={handleSubmit}>
+            <div className="text-center mt-8">
+              <Button
+                type="submit"
+                size="lg"
+                className="bg-gradient-to-r from-orange-500 to-purple-600 hover:from-orange-600 hover:to-purple-700 text-white px-12 py-4 text-lg"
+              >
+                <Icon name="Send" className="mr-2" />
+                Отправить заявку
+              </Button>
 
-            <p className="text-xs text-gray-500 mt-4">
-              Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
-            </p>
-          </div>
+              <p className="text-xs text-gray-500 mt-4">
+                Нажимая кнопку, вы соглашаетесь с обработкой персональных данных
+              </p>
+            </div>
+          </form>
         </div>
       </div>
     </section>
