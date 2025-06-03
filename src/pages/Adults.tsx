@@ -150,10 +150,15 @@ const Adults = () => {
           </p>
           <Button
             size="lg"
-            variant="secondary"
-            className="text-purple-700 hover:text-purple-800"
+            className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+            onClick={() =>
+              window.open(
+                "https://wa.me/79284500272?text=Здравствуйте! Хочу узнать о ваших услугах для взрослых",
+                "_blank",
+              )
+            }
           >
-            <Icon name="Phone" size={20} className="mr-2" />
+            <Icon name="MessageCircle" size={20} className="mr-2" />
             Связаться с нами
           </Button>
         </div>
